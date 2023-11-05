@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #343334;
+}
+
+#app {
+  height: calc(100vh - 4rem);
+}
+
+canvas {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.timer-shadow {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
