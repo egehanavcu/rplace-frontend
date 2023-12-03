@@ -1,18 +1,20 @@
 import { pointerOut } from "../_events/cross/pixel/pointerOut";
 import { pointerOver } from "../_events/cross/pixel/pointerOver";
 import { pointerPlacePixel } from "../_events/cross/pixel/pointerPlacePixel";
+import { getBoard } from "../_socket/getBoard";
 import { CanvasHeight, CanvasWidth, PixelSize } from "./constants";
 
 export const initialDraw = function () {
-  for (let x = 0; x < CanvasWidth / PixelSize; x++) {
-    for (let y = 0; y < CanvasHeight / PixelSize; y++) {
+  getBoard().then((data) => {
+    for (const pixelData of data) {
       const pixel = this.add.rectangle(
-        x * PixelSize,
-        y * PixelSize,
+        pixelData.x * PixelSize,
+        pixelData.y * PixelSize,
         PixelSize,
         PixelSize,
-        0xffffff
+        parseInt(pixelData.color, 16)
       );
+
       pixel.setOrigin(0, 0);
       pixel.setInteractive();
 
@@ -32,7 +34,7 @@ export const initialDraw = function () {
         pointerPlacePixel.bind(this)(pixel);
       });
     }
-  }
+  });
 
   this.cameras.main.zoom = Math.min(
     (this.game.config.width - 30) / CanvasWidth,

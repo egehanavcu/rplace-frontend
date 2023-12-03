@@ -5,12 +5,16 @@ import { wheel } from "../_events/computer/wheel";
 import { pinch } from "../_events/mobile/pinch";
 import { confirmPlacement } from "../_events/cross/pixel/confirmPlacement";
 import { cancelPlacement } from "../_events/cross/pixel/cancelPlacement";
+import { getPixelUpdate } from "../_socket/getPixelUpdate";
 
 export default class MainScene extends Scene {
   constructor() {
     super("MainScene");
+    this.socket;
+    this.stompClient;
+
     this.canPlacePixel = true;
-    this.selectedPixel = { element: null, color: null };
+    this.selectedPixel = { element: null, color: 0x000000 };
     this.color = 0x000000;
     this.isPan = false;
     this.lastPositionPan = { x: null, y: null };
@@ -48,6 +52,9 @@ export default class MainScene extends Scene {
   }
 
   create() {
+    this.socket = new SockJS("http://192.168.0.22:8080/rplace");
+    this.stompClient = Stomp.over(this.socket);
+
     document.querySelectorAll("[id^='color-']").forEach((button) => {
       button.addEventListener("click", () => {
         this.sound.add("choose-color").play();
@@ -108,5 +115,6 @@ export default class MainScene extends Scene {
     });
 
     initialDraw.bind(this)();
+    getPixelUpdate.bind(this)();
   }
 }

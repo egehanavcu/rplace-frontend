@@ -1,7 +1,9 @@
+import { sendPixel } from "@/app/_socket/sendPixel";
 import { PlacementSeconds } from "@/app/_utils/constants";
 
 export const confirmPlacement = function () {
   if (this.canPlacePixel) {
+    sendPixel.bind(this)();
     this.sound.add("place-pixel").play();
 
     // this.selectedPixel.element.setAlpha(1);
