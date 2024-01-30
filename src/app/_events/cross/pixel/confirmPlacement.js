@@ -2,14 +2,13 @@ import { sendPixel } from "@/app/_socket/sendPixel";
 import { PlacementSeconds } from "@/app/_utils/constants";
 
 export const confirmPlacement = function () {
-  if (this.canPlacePixel) {
+  if (this.canPlacePixel && this.selectedPixel.element) {
     sendPixel.bind(this)();
     this.sound.add("place-pixel").play();
 
-    // this.selectedPixel.element.setAlpha(1);
     this.selectedPixel.element.setStrokeStyle(0);
     this.canPlacePixel = false;
-    this.selectedPixel = { element: null, color: null };
+    this.selectedPixel = { row: null, col: null, element: null, color: null };
 
     document.querySelector("#confirmContainer").classList.add("hidden");
     document.querySelector("#confirmContainer").classList.remove("flex");
@@ -20,9 +19,13 @@ export const confirmPlacement = function () {
 
     let intervalId = null;
     intervalId = setInterval(() => {
-      document.querySelector("#secondsLeft").textContent =
-        parseInt(document.querySelector("#secondsLeft").textContent) - 1;
-      if (parseInt(document.querySelector("#secondsLeft").textContent) <= 0) {
+      document.querySelector("#secondsLeft").textContent = (
+        "0" +
+        (parseInt(document.querySelector("#secondsLeft").textContent, 10) - 1)
+      ).slice(-2);
+      if (
+        parseInt(document.querySelector("#secondsLeft").textContent, 10) <= 0
+      ) {
         if (intervalId) {
           clearInterval(intervalId);
           intervalId = null;
@@ -44,7 +47,9 @@ export const confirmPlacement = function () {
       document.querySelector("#backdrop").classList.add("hidden");
       document.querySelector("#colorContainer").classList.remove("hidden");
       document.querySelector("#colorContainer").classList.add("flex");
-      document.querySelector("#secondsLeft").textContent = PlacementSeconds;
+      document.querySelector("#secondsLeft").textContent = (
+        "0" + PlacementSeconds
+      ).slice(-2);
     }, PlacementSeconds * 1000);
   }
 };

@@ -14,11 +14,17 @@ export default class MainScene extends Scene {
     this.stompClient;
 
     this.canPlacePixel = true;
-    this.selectedPixel = { element: null, color: 0x000000 };
+    this.selectedPixel = {
+      row: null,
+      col: null,
+      element: null,
+      color: 0x000000,
+    };
     this.color = 0x000000;
     this.isPan = false;
     this.lastPositionPan = { x: null, y: null };
     this.lastDistance = 0;
+    this.lastMousePixel = { row: null, col: null, shadow: null };
   }
 
   preload() {
@@ -52,7 +58,7 @@ export default class MainScene extends Scene {
   }
 
   create() {
-    this.socket = new SockJS("http://192.168.0.22:8080/rplace");
+    this.socket = new SockJS("http://192.168.1.6:8080/rplace");
     this.stompClient = Stomp.over(this.socket);
 
     document.querySelectorAll("[id^='color-']").forEach((button) => {

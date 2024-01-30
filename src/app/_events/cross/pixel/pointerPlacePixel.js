@@ -1,4 +1,6 @@
-export const pointerPlacePixel = function (pixel) {
+import { PixelSize } from "@/app/_utils/constants";
+
+export const pointerPlacePixel = function (row, col) {
   if (!this.canPlacePixel) {
     this.sound.add("cant-modify").play();
     this.cameras.main.shake(300, 0.01 / this.cameras.main.zoom, true);
@@ -6,20 +8,28 @@ export const pointerPlacePixel = function (pixel) {
   }
 
   this.sound.add("select-pixel").play();
+
   if (this.selectedPixel.element) {
-    this.selectedPixel.element.setFillStyle(this.selectedPixel.color);
-    // this.selectedPixel.element.setAlpha(1);
-    this.selectedPixel.element.setStrokeStyle(0);
+    this.selectedPixel.element.destroy();
   }
 
   this.selectedPixel = {
-    element: pixel,
-    color: pixel.fillColor,
+    row: row,
+    col: col,
+    color: this.color,
   };
 
-  pixel.setFillStyle(this.color);
-  // pixel.setAlpha(0.6);
-  pixel.setStrokeStyle(1, 0x050505);
+  this.selectedPixel.element = this.add.rectangle(
+    row * PixelSize + PixelSize / 2,
+    col * PixelSize + PixelSize / 2,
+    PixelSize,
+    PixelSize,
+    this.color,
+    1
+  );
+
+  this.selectedPixel.element.setFillStyle(this.color);
+  this.selectedPixel.element.setStrokeStyle(1, 0x050505);
 
   document.querySelector("#colorContainer").classList.remove("flex");
   document.querySelector("#colorContainer").classList.add("hidden");

@@ -8,20 +8,13 @@ export const getPixelUpdate = function () {
       const data = JSON.parse(response.body);
       console.log(data);
 
-      /*
-      this.children.getAll()[x * PixelSize + y * PixelSize].setFillStyle(
+      this.add.rectangle(
+        data.x * PixelSize + PixelSize / 2,
+        data.y * PixelSize + PixelSize / 2,
+        PixelSize,
+        PixelSize,
         parseInt(data.color, 16)
       );
-      */
-
-      this.children.getAll().forEach((sprite) => {
-        if (
-          sprite.x === data.x * PixelSize &&
-          sprite.y === data.y * PixelSize
-        ) {
-          sprite.setFillStyle(parseInt(data.color, 16));
-        }
-      });
     });
   });
 };
