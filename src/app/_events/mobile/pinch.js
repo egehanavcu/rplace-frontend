@@ -1,3 +1,5 @@
+import { CanvasHeight, CanvasWidth } from "@/app/_utils/constants";
+
 export const pinch = function (pointer) {
   const dx =
     pointer.event.touches[0].clientX - pointer.event.touches[1].clientX;
@@ -8,7 +10,10 @@ export const pinch = function (pointer) {
     const delta = distance - this.lastDistance;
     this.cameras.main.zoom = Phaser.Math.Clamp(
       this.cameras.main.zoom + delta / 500,
-      0.1,
+      Math.min(
+        (this.game.config.width - 30) / CanvasWidth,
+        (this.game.config.height - 30) / CanvasHeight
+      ),
       5
     );
   }

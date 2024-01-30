@@ -46,9 +46,11 @@ export default class MainScene extends Scene {
         return;
       }
       this.cameras.main.scrollX -=
-        this.input.activePointer.position.x - this.lastPositionPan.x;
+        (this.input.activePointer.position.x - this.lastPositionPan.x) /
+        this.cameras.main.zoom;
       this.cameras.main.scrollY -=
-        this.input.activePointer.position.y - this.lastPositionPan.y;
+        (this.input.activePointer.position.y - this.lastPositionPan.y) /
+        this.cameras.main.zoom;
 
       this.lastPositionPan = {
         x: this.input.activePointer.x,
