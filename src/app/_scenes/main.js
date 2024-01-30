@@ -25,6 +25,7 @@ export default class MainScene extends Scene {
     this.lastPositionPan = { x: null, y: null };
     this.lastDistance = 0;
     this.lastMousePixel = { row: null, col: null, shadow: null };
+    this.lastTween = null;
   }
 
   preload() {

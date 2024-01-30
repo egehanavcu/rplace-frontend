@@ -10,6 +10,11 @@ export const initialDraw = function () {
     CanvasHeight
   );
 
+  const minZoom = Math.min(
+    (this.game.config.width - 30) / CanvasWidth,
+    (this.game.config.height - 30) / CanvasHeight
+  );
+
   const pixels = {};
 
   getBoard().then((data) => {
@@ -46,6 +51,24 @@ export const initialDraw = function () {
     ) {
       if (pointer.getDistance() <= 20) {
         // console.log("Clicked on grid:", mouseRow, mouseCol);
+        if (
+          this.cameras.main.zoom >= minZoom &&
+          this.cameras.main.zoom <= 5 * minZoom
+        ) {
+          this.cameras.main.centerOn(
+            mouseRow * PixelSize + PixelSize / 2,
+            mouseCol * PixelSize + PixelSize / 2
+          );
+
+          this.lastTween = this.tweens.add({
+            targets: this.cameras.main,
+            zoom: 1.5,
+            duration: 800 * Math.abs(3 - this.cameras.main.zoom),
+            ease: "sine.inout",
+            repeat: 0,
+          });
+        }
+
         pointerPlacePixel.bind(this)(mouseRow, mouseCol);
       }
     }
@@ -91,10 +114,6 @@ export const initialDraw = function () {
     }
   });
 
-  this.cameras.main.zoom = Math.min(
-    (this.game.config.width - 30) / CanvasWidth,
-    (this.game.config.height - 30) / CanvasHeight
-  );
-
+  this.cameras.main.zoom = minZoom;
   this.cameras.main.centerOn(CanvasWidth / 2, CanvasHeight / 2);
 };
