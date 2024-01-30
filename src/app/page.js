@@ -21,6 +21,7 @@ export default function Home() {
           autoCenter: Phaser.Scale.CENTER_BOTH,
         },
         backgroundColor: "#343334",
+        pixelArt: true,
         scene: [MainScene],
       });
       setGame(PhaserGame);
