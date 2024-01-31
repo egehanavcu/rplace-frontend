@@ -38,6 +38,7 @@ export const initialDraw = function () {
       );
     }
     rt.endDraw();
+    document.querySelector("#loading").classList.add("hidden");
   });
 
   this.input.on("pointerup", (pointer) => {

@@ -20,7 +20,7 @@ export default function Home() {
         scale: {
           autoCenter: Phaser.Scale.CENTER_BOTH,
         },
-        backgroundColor: "#343334",
+        transparent: true,
         pixelArt: true,
         scene: [MainScene],
       });
@@ -32,6 +32,12 @@ export default function Home() {
   return (
     <>
       <div id="app"></div>
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        id="loading"
+      >
+        <span className="loader"></span>
+      </div>
       <div className="flex flex-col justify-center gap-3 absolute bottom-0 w-full bg-slate-50 h-[64px]">
         <div
           className="hidden absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/10 to-black/40"
