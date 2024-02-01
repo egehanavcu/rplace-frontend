@@ -3,7 +3,7 @@ import { getBoard } from "../_socket/getBoard";
 import { COLORS, CanvasHeight, CanvasWidth, PixelSize } from "./constants";
 
 export const initialDraw = function () {
-  const rt = this.add.renderTexture(
+  this.renderTexture = this.add.renderTexture(
     CanvasWidth / 2,
     CanvasHeight / 2,
     CanvasWidth,
@@ -29,17 +29,17 @@ export const initialDraw = function () {
       );
     }
 
-    rt.beginDraw();
+    this.renderTexture.beginDraw();
     for (const [index, color] of data.entries()) {
       const row = Math.floor(index / (CanvasWidth / PixelSize));
       const column = index % (CanvasHeight / PixelSize);
-      rt.batchDraw(
+      this.renderTexture.batchDraw(
         pixels[parseInt(color, 16)],
         row * PixelSize + PixelSize / 2,
         column * PixelSize + PixelSize / 2
       );
     }
-    rt.endDraw();
+    this.renderTexture.endDraw();
     document.querySelector("#loading").classList.add("hidden");
   });
 

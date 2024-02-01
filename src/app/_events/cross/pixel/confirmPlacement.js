@@ -6,7 +6,9 @@ export const confirmPlacement = function () {
     sendPixel.bind(this)();
     this.sound.add("place-pixel").play();
 
-    this.selectedPixel.element.setStrokeStyle(0);
+    // this.selectedPixel.element.setStrokeStyle(0);
+    this.selectedPixel.element.destroy();
+
     this.canPlacePixel = false;
     this.selectedPixel = { row: null, col: null, element: null, color: null };
 

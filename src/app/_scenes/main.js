@@ -13,6 +13,7 @@ export default class MainScene extends Scene {
     this.socket;
     this.stompClient;
 
+    this.renderTexture;
     this.canPlacePixel = true;
     this.selectedPixel = {
       row: null,
@@ -61,7 +62,7 @@ export default class MainScene extends Scene {
   }
 
   create() {
-    this.socket = new SockJS("http://192.168.1.6:8080/rplace");
+    this.socket = new SockJS("http://192.168.1.96:8080/rplace");
     this.stompClient = Stomp.over(this.socket);
 
     document.querySelectorAll("[id^='color-']").forEach((button) => {

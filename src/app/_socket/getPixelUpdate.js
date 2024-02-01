@@ -8,13 +8,20 @@ export const getPixelUpdate = function () {
       const data = JSON.parse(response.body);
       console.log(data);
 
-      this.add.rectangle(
-        data.x * PixelSize + PixelSize / 2,
-        data.y * PixelSize + PixelSize / 2,
-        PixelSize,
-        PixelSize,
-        parseInt(data.color, 16)
-      );
+      if (this.renderTexture) {
+        this.renderTexture.draw(
+          new Phaser.GameObjects.Rectangle(
+            this,
+            0,
+            0,
+            PixelSize,
+            PixelSize,
+            parseInt(data.color, 16)
+          ),
+          data.x * PixelSize + PixelSize / 2,
+          data.y * PixelSize + PixelSize / 2
+        );
+      }
     });
   });
 };
