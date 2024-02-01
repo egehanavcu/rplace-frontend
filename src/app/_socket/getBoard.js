@@ -1,5 +1,5 @@
 export const getBoard = function () {
-  return fetch("http://192.168.0.22:8080/api/pixels/getBoard")
+  return fetch("http://192.168.1.96:8080/api/pixels/getColors")
     .then((response) => response.json())
     .then((data) => {
       return data.data;

@@ -30,11 +30,13 @@ export const initialDraw = function () {
     }
 
     rt.beginDraw();
-    for (const pixelData of data) {
+    for (const [index, color] of data.entries()) {
+      const row = Math.floor(index / (CanvasWidth / PixelSize));
+      const column = index % (CanvasHeight / PixelSize);
       rt.batchDraw(
-        pixels[parseInt(pixelData.color, 16)],
-        pixelData.x * PixelSize + PixelSize / 2,
-        pixelData.y * PixelSize + PixelSize / 2
+        pixels[parseInt(color, 16)],
+        row * PixelSize + PixelSize / 2,
+        column * PixelSize + PixelSize / 2
       );
     }
     rt.endDraw();
