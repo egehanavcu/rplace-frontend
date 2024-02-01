@@ -33,6 +33,14 @@ export default function Home() {
     <>
       <div id="app"></div>
       <div
+        className="justify-center items-center bg-zinc-800 w-20 py-1 absolute top-0 left-0 border-2 border-zinc-900 hidden"
+        id="fpsCounterContainer"
+      >
+        <span className="text-neutral-200 select-none">
+          <span id="fpsCounter"></span> FPS
+        </span>
+      </div>
+      <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         id="loading"
       >

@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { COLORS } from "../_utils/constants";
+import { COLORS, DEBUG_MODE } from "../_utils/constants";
 import { initialDraw } from "../_utils/initialDraw";
 import { wheel } from "../_events/computer/wheel";
 import { pinch } from "../_events/mobile/pinch";
@@ -39,6 +39,12 @@ export default class MainScene extends Scene {
   }
 
   update() {
+    if (DEBUG_MODE) {
+      document.querySelector("#fpsCounter").textContent = Math.ceil(
+        this.sys.game.loop.actualFps
+      );
+    }
+
     if (this.isPan && this.lastDistance === 0) {
       if (
         !this.sys.game.device.os.desktop &&

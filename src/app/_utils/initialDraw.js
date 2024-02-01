@@ -1,6 +1,12 @@
 import { pointerPlacePixel } from "../_events/cross/pixel/pointerPlacePixel";
 import { getBoard } from "../_socket/getBoard";
-import { COLORS, CanvasHeight, CanvasWidth, PixelSize } from "./constants";
+import {
+  COLORS,
+  CanvasHeight,
+  CanvasWidth,
+  DEBUG_MODE,
+  PixelSize,
+} from "./constants";
 
 export const initialDraw = function () {
   this.renderTexture = this.add.renderTexture(
@@ -41,6 +47,11 @@ export const initialDraw = function () {
     }
     this.renderTexture.endDraw();
     document.querySelector("#loading").classList.add("hidden");
+
+    if (DEBUG_MODE) {
+      document.querySelector("#fpsCounterContainer").classList.remove("hidden");
+      document.querySelector("#fpsCounterContainer").classList.add("flex");
+    }
   });
 
   this.input.on("pointerup", (pointer) => {
