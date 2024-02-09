@@ -31,9 +31,18 @@ export const pointerPlacePixel = function (row, col) {
   this.selectedPixel.element.setFillStyle(this.color);
   this.selectedPixel.element.setStrokeStyle(1, 0x050505);
 
+  const colorsContainerHeight =
+    document.querySelector("#colorContainer").clientHeight;
+
   document.querySelector("#colorContainer").classList.remove("flex");
   document.querySelector("#colorContainer").classList.add("hidden");
 
   document.querySelector("#confirmContainer").classList.add("flex");
   document.querySelector("#confirmContainer").classList.remove("hidden");
+
+  if (!document.querySelector("#confirmContainer").style.height) {
+    document.querySelector(
+      "#confirmContainer"
+    ).style.height = `${colorsContainerHeight}px`;
+  }
 };

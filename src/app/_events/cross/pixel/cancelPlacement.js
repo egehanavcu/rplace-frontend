@@ -12,5 +12,6 @@ export const cancelPlacement = function () {
     document.querySelector("#colorContainer").classList.add("flex");
     document.querySelector("#confirmContainer").classList.add("hidden");
     document.querySelector("#confirmContainer").classList.remove("flex");
+    document.querySelector("#confirmContainer").style.height = "";
   }
 };

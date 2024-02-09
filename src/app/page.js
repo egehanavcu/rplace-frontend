@@ -9,6 +9,7 @@ export default function Home() {
   const [hoveredColor, setHoveredColor] = useState(null);
 
   useEffect(() => {
+    const UIHeight = document.querySelector("#ui").clientHeight;
     async function initPhaser() {
       const Phaser = await import("phaser");
       const { default: MainScene } = await import("./_scenes/main");
@@ -16,7 +17,7 @@ export default function Home() {
         type: Phaser.AUTO,
         parent: "app",
         width: window.innerWidth,
-        height: window.innerHeight - 64,
+        height: window.innerHeight - UIHeight,
         scale: {
           autoCenter: Phaser.Scale.CENTER_BOTH,
         },
@@ -33,6 +34,18 @@ export default function Home() {
     <>
       <div id="app"></div>
       <div
+        className="flex justify-center absolute top-4 left-1/2 -translate-x-1/2 min-w-[12rem] py-0.5 bg-white font-mono rounded-full select-none container-shadow"
+        id="coordinates"
+      >
+        (0,0)
+      </div>
+      <div
+        className="justify-center absolute top-14 left-1/2 -translate-x-1/2 min-w-[12rem] px-2 py-0.5 bg-white text-center font-mono rounded-full select-none container-shadow animate-pulse hidden"
+        id="connectionError"
+      >
+        Bağlantı koptu, yeniden bağlanılıyor...
+      </div>
+      <div
         className="justify-center items-center bg-zinc-800 w-20 py-1 absolute top-0 left-0 border-2 border-zinc-900 hidden"
         id="fpsCounterContainer"
       >
@@ -46,12 +59,18 @@ export default function Home() {
       >
         <span className="loader"></span>
       </div>
-      <div className="flex flex-col justify-center gap-3 absolute bottom-0 w-full bg-slate-50 h-[64px]">
+      <div
+        className="flex flex-col justify-center gap-3 absolute bottom-0 w-full bg-slate-50 py-2"
+        id="ui"
+      >
         <div
           className="hidden absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/10 to-black/40"
           id="backdrop"
         ></div>
-        <div className="flex justify-center gap-2 px-8" id="colorContainer">
+        <div
+          className="flex flex-wrap justify-center gap-0.5 px-0.5"
+          id="colorContainer"
+        >
           {COLORS.map((color, index) => (
             <ColorBox
               index={index}
@@ -93,9 +112,12 @@ export default function Home() {
             </svg>
           </div>
         </div>
-        <div className="hidden justify-center gap-2 px-8" id="breakContainer">
+        <div
+          className="hidden justify-center items-center gap-2 px-8"
+          id="breakContainer"
+        >
           <div
-            className="flex gap-2 px-7 py-1.5 border-2 border-gray-200 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors cursor-pointer timer-shadow z-10"
+            className="flex gap-2 items-center px-7 py-1.5 border-2 border-gray-200 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors cursor-pointer timer-shadow z-10"
             id="confirmPlacement"
           >
             <svg

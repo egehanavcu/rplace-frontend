@@ -1,5 +1,5 @@
 export const getBoard = function () {
-  return fetch("http://192.168.1.96:8080/api/pixels/getColors")
+  return fetch("https://yildizplace-backend.onrender.com/api/pixels/getColors")
     .then((response) => response.json())
     .then((data) => {
       return data.data;

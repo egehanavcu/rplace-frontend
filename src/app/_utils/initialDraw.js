@@ -1,12 +1,6 @@
 import { pointerPlacePixel } from "../_events/cross/pixel/pointerPlacePixel";
 import { getBoard } from "../_socket/getBoard";
-import {
-  COLORS,
-  CanvasHeight,
-  CanvasWidth,
-  DEBUG_MODE,
-  PixelSize,
-} from "./constants";
+import { CanvasHeight, CanvasWidth, DEBUG_MODE, PixelSize } from "./constants";
 
 export const initialDraw = function () {
   this.renderTexture = this.add.renderTexture(
@@ -21,31 +15,61 @@ export const initialDraw = function () {
     (this.game.config.height - 30) / CanvasHeight
   );
 
-  const pixels = {};
-
   getBoard().then((data) => {
-    for (const COLOR of COLORS) {
-      pixels[COLOR] = new Phaser.GameObjects.Rectangle(
-        this,
-        0,
-        0,
-        PixelSize,
-        PixelSize,
-        COLOR
-      );
-    }
-
     this.renderTexture.beginDraw();
     for (const [index, color] of data.entries()) {
       const row = Math.floor(index / (CanvasWidth / PixelSize));
       const column = index % (CanvasHeight / PixelSize);
       this.renderTexture.batchDraw(
-        pixels[parseInt(color, 16)],
+        this.batchPixels[parseInt(color, 16)],
         row * PixelSize + PixelSize / 2,
         column * PixelSize + PixelSize / 2
       );
     }
     this.renderTexture.endDraw();
+
+    this.add.image(0, 0, "edge").setOrigin(0, 0.5).setPosition(-120, -50);
+
+    this.add
+      .rectangle(
+        -1 * PixelSize + PixelSize / 2,
+        -1 * PixelSize,
+        PixelSize,
+        CanvasHeight + 2 * PixelSize,
+        0xc6c4c4
+      )
+      .setOrigin(0.5, 0); // Border Left
+
+    this.add
+      .rectangle(
+        CanvasWidth + PixelSize / 2,
+        -1 * PixelSize,
+        PixelSize,
+        CanvasHeight + 2 * PixelSize,
+        0xc6c4c4
+      )
+      .setOrigin(0.5, 0); // Border Right
+
+    this.add
+      .rectangle(
+        0,
+        -1 * PixelSize + PixelSize / 2,
+        CanvasWidth,
+        PixelSize,
+        0xc6c4c4
+      )
+      .setOrigin(0, 0.5); // Border Top
+
+    this.add
+      .rectangle(
+        0,
+        CanvasHeight + PixelSize / 2,
+        CanvasWidth,
+        PixelSize,
+        0xc6c4c4
+      )
+      .setOrigin(0, 0.5); // Border Bottom
+
     document.querySelector("#loading").classList.add("hidden");
 
     if (DEBUG_MODE) {
@@ -65,6 +89,9 @@ export const initialDraw = function () {
     ) {
       if (pointer.getDistance() <= 20) {
         // console.log("Clicked on grid:", mouseRow, mouseCol);
+        document.querySelector(
+          "#coordinates"
+        ).textContent = `(${mouseRow},${mouseCol})`;
         if (
           this.cameras.main.zoom >= minZoom &&
           this.cameras.main.zoom <= 5 * minZoom
@@ -108,6 +135,9 @@ export const initialDraw = function () {
           mouseCol <= CanvasHeight / PixelSize - 1
         ) {
           // console.log("Moved on grid:", mouseRow, mouseCol);
+          document.querySelector(
+            "#coordinates"
+          ).textContent = `(${mouseRow},${mouseCol})`;
           this.lastMousePixel.row = mouseRow;
           this.lastMousePixel.col = mouseCol;
           this.lastMousePixel.shadow = this.add.rectangle(

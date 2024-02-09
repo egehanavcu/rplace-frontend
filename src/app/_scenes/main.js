@@ -6,14 +6,18 @@ import { pinch } from "../_events/mobile/pinch";
 import { confirmPlacement } from "../_events/cross/pixel/confirmPlacement";
 import { cancelPlacement } from "../_events/cross/pixel/cancelPlacement";
 import { getPixelUpdate } from "../_socket/getPixelUpdate";
+import { reconnectDraw } from "../_utils/reconnectDraw";
+import { createBatchPixels } from "../_utils/createBatchPixels";
 
 export default class MainScene extends Scene {
   constructor() {
     super("MainScene");
     this.socket;
     this.stompClient;
+    this.lastHeartbeatAt;
 
     this.renderTexture;
+    this.batchPixels = {};
     this.canPlacePixel = true;
     this.selectedPixel = {
       row: null,
@@ -30,6 +34,7 @@ export default class MainScene extends Scene {
   }
 
   preload() {
+    this.load.image("edge", "edge.png");
     this.load.audio("select-pixel", ["sounds/select-pixel.mp3"]);
     this.load.audio("place-pixel", ["sounds/place-pixel.mp3"]);
     this.load.audio("can-modify", ["sounds/can-modify.mp3"]);
@@ -68,8 +73,43 @@ export default class MainScene extends Scene {
   }
 
   create() {
-    this.socket = new SockJS("http://192.168.1.96:8080/rplace");
-    this.stompClient = Stomp.over(this.socket);
+    this.stompClient = Stomp.over(function () {
+      return new SockJS("https://yildizplace-backend.onrender.com/rplace");
+    });
+
+    this.stompClient.heartbeat.outgoing = 5000;
+    this.stompClient.heartbeat.incoming = 5000;
+    this.stompClient.reconnect_delay = 3000;
+
+    createBatchPixels.bind(this)();
+
+    this.stompClient.connect(
+      {},
+      (frame) => {
+        // Connected
+        getPixelUpdate.bind(this)();
+        if (this.lastHeartbeatAt) {
+          reconnectDraw.bind(this)();
+
+          this.lastHeartbeatAt = null;
+          document.querySelector("#connectionError").classList.remove("flex");
+          document.querySelector("#connectionError").classList.add("hidden");
+        }
+      },
+      () => {},
+      () => {
+        // Disconnected
+        if (!this.lastHeartbeatAt)
+          this.lastHeartbeatAt = Math.floor(Date.now() / 1000);
+        document.querySelector("#connectionError").classList.remove("hidden");
+        document.querySelector("#connectionError").classList.add("flex");
+      }
+    );
+
+    window.addEventListener("resize", () => {
+      const UIHeight = document.querySelector("#ui").clientHeight;
+      this.scale.resize(window.innerWidth, window.innerHeight - UIHeight);
+    });
 
     document.querySelectorAll("[id^='color-']").forEach((button) => {
       button.addEventListener("click", () => {
@@ -131,6 +171,5 @@ export default class MainScene extends Scene {
     });
 
     initialDraw.bind(this)();
-    getPixelUpdate.bind(this)();
   }
 }

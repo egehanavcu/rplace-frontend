@@ -12,10 +12,17 @@ export const confirmPlacement = function () {
     this.canPlacePixel = false;
     this.selectedPixel = { row: null, col: null, element: null, color: null };
 
+    const confirmContainerHeight =
+      document.querySelector("#confirmContainer").clientHeight;
+
     document.querySelector("#confirmContainer").classList.add("hidden");
     document.querySelector("#confirmContainer").classList.remove("flex");
+    document.querySelector("#confirmContainer").style.height = "";
     document.querySelector("#breakContainer").classList.remove("hidden");
     document.querySelector("#breakContainer").classList.add("flex");
+    document.querySelector(
+      "#breakContainer"
+    ).style.height = `${confirmContainerHeight}px`;
     document.querySelector("#backdrop").classList.remove("hidden");
     document.querySelector("#backdrop").classList.add("flex");
 
@@ -45,6 +52,7 @@ export const confirmPlacement = function () {
       this.canPlacePixel = true;
       document.querySelector("#breakContainer").classList.add("hidden");
       document.querySelector("#breakContainer").classList.remove("flex");
+      document.querySelector("#breakContainer").style.height = "";
       document.querySelector("#backdrop").classList.remove("flex");
       document.querySelector("#backdrop").classList.add("hidden");
       document.querySelector("#colorContainer").classList.remove("hidden");

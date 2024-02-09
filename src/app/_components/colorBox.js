@@ -15,7 +15,7 @@ export default function ColorBox({
   return (
     <div
       id={`color-${index}`}
-      className="flex-1 w-16 h-8 transition-opacity cursor-pointer border"
+      className="w-12 h-8 transition-opacity cursor-pointer border"
       style={{
         backgroundColor: `#${toHexWithLeadingZeros(color)}`,
         opacity: color === hoveredColor ? 0.3 : 1,
