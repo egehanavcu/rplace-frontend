@@ -6,7 +6,7 @@ export const pinch = function (pointer) {
   const dy =
     pointer.event.touches[0].clientY - pointer.event.touches[1].clientY;
   const distance = Math.sqrt(dx * dx + dy * dy);
-  if (this.lastDistance) {
+  if (this.lastDistance && !this.isLoading) {
     const delta = distance - this.lastDistance;
     this.cameras.main.zoom = Phaser.Math.Clamp(
       this.cameras.main.zoom + delta / 500,

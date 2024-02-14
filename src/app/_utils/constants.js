@@ -9,4 +9,4 @@ export const COLORS = [
   0xde107f, 0xff3881, 0xff99aa, 0x6d482f, 0x9c6926, 0xffb470, 0x000000,
   0x515252, 0x898d90, 0xd4d7d9, 0xffffff,
 ];
-export const DEBUG_MODE = true;
+export const DEBUG_MODE = false;

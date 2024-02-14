@@ -1,7 +1,7 @@
 import { CanvasHeight, CanvasWidth } from "@/app/_utils/constants";
 
 export const wheel = function (pointer, gameObjects, deltaX, deltaY) {
-  if (!this.sys.game.device.os.desktop) {
+  if (!this.sys.game.device.os.desktop || this.isLoading) {
     return;
   }
 

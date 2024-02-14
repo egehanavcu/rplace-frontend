@@ -45,4 +45,6 @@ export const pointerPlacePixel = function (row, col) {
       "#confirmContainer"
     ).style.height = `${colorsContainerHeight}px`;
   }
+
+  window.history.replaceState({}, "", `?x=${row}&y=${col}`);
 };

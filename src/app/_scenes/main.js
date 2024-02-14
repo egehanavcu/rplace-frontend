@@ -8,6 +8,7 @@ import { cancelPlacement } from "../_events/cross/pixel/cancelPlacement";
 import { getPixelUpdate } from "../_socket/getPixelUpdate";
 import { reconnectDraw } from "../_utils/reconnectDraw";
 import { createBatchPixels } from "../_utils/createBatchPixels";
+import { getFill } from "../_socket/getFill";
 
 export default class MainScene extends Scene {
   constructor() {
@@ -26,6 +27,7 @@ export default class MainScene extends Scene {
       color: 0x000000,
     };
     this.color = 0x000000;
+    this.isLoading = true;
     this.isPan = false;
     this.lastPositionPan = { x: null, y: null };
     this.lastDistance = 0;
@@ -34,7 +36,7 @@ export default class MainScene extends Scene {
   }
 
   preload() {
-    this.load.image("edge", "edge.png");
+    this.load.image("edge", "images/edge.png");
     this.load.audio("select-pixel", ["sounds/select-pixel.mp3"]);
     this.load.audio("place-pixel", ["sounds/place-pixel.mp3"]);
     this.load.audio("can-modify", ["sounds/can-modify.mp3"]);
@@ -50,7 +52,7 @@ export default class MainScene extends Scene {
       );
     }
 
-    if (this.isPan && this.lastDistance === 0) {
+    if (this.isPan && this.lastDistance === 0 && !this.isLoading) {
       if (
         !this.sys.game.device.os.desktop &&
         this.input.pointer1.isDown &&
@@ -73,6 +75,7 @@ export default class MainScene extends Scene {
   }
 
   create() {
+    document.querySelector("body").style.backgroundColor = "#343334";
     this.stompClient = Stomp.over(function () {
       return new SockJS("https://yildizplace-backend.onrender.com/rplace");
     });
@@ -88,6 +91,7 @@ export default class MainScene extends Scene {
       (frame) => {
         // Connected
         getPixelUpdate.bind(this)();
+        getFill.bind(this)();
         if (this.lastHeartbeatAt) {
           reconnectDraw.bind(this)();
 
@@ -108,6 +112,9 @@ export default class MainScene extends Scene {
 
     window.addEventListener("resize", () => {
       const UIHeight = document.querySelector("#ui").clientHeight;
+      document.querySelector("#loading").style.top = `calc(50% - ${
+        UIHeight / 2
+      }px)`;
       this.scale.resize(window.innerWidth, window.innerHeight - UIHeight);
     });
 

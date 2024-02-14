@@ -6,7 +6,11 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #343334;
+  background-color: #1d1c1d;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 1000ms;
 }
 
 #app {
