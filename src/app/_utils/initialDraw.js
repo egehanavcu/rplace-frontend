@@ -20,8 +20,9 @@ export const initialDraw = function () {
     (this.game.config.height - 30) / CanvasHeight
   );
 
-  getBoard().then((data) => {
-    if (data?.success) {
+  getBoard().then((receivedData) => {
+    const { data, success } = receivedData;
+    if (success) {
       this.renderTexture.beginDraw();
       for (const [index, color] of data.entries()) {
         const row = Math.floor(index / (CanvasWidth / PixelSize));
