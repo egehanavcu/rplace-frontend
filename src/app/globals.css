@@ -26,6 +26,10 @@ canvas {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
 }
 
+.pixel-box-shadow {
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.75);
+}
+
 .loader {
   width: 48px;
   height: 48px;

@@ -67,14 +67,14 @@ export const AdminPanel = () => {
         </svg>
       </div>
       <div
-        className={`flex flex-col absolute top-14 left-1/2 -translate-x-1/2 w-5/6 md:w-1/3 py-4 px-8 bg-white rounded-md select-none z-20 ${
+        className={`flex flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5/6 md:w-1/3 py-4 px-8 bg-white border-2 border-black pixel-box-shadow select-none z-20 ${
           isPanelShowing ? "" : "hidden"
         }`}
       >
         <h1 className="text-lg font-bold mb-2">Aralık Doldurucu</h1>
         <form onSubmit={fillArea}>
-          <div class="flex flex-col mb-3">
-            <label class="block mb-2 text-sm font-medium text-gray-900">
+          <div className="flex flex-col mb-3">
+            <label className="block mb-2 text-sm font-medium text-gray-900">
               Başlangıç X ve Y
             </label>
             <div className="flex gap-2">
@@ -82,7 +82,7 @@ export const AdminPanel = () => {
                 type="number"
                 min="0"
                 max={CanvasWidth / PixelSize - 1}
-                class="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                className="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2.5"
                 placeholder="X giriniz."
                 ref={startX}
                 required
@@ -91,15 +91,15 @@ export const AdminPanel = () => {
                 type="number"
                 min="0"
                 max={CanvasHeight / PixelSize - 1}
-                class="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                className="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2.5"
                 placeholder="Y giriniz."
                 ref={startY}
                 required
               />
             </div>
           </div>
-          <div class="flex flex-col mb-3">
-            <label class="block mb-2 text-sm font-medium text-gray-900">
+          <div className="flex flex-col mb-3">
+            <label className="block mb-2 text-sm font-medium text-gray-900">
               Bitiş X ve Y
             </label>
             <div className="flex gap-2">
@@ -107,7 +107,7 @@ export const AdminPanel = () => {
                 type="number"
                 min="0"
                 max={CanvasWidth / PixelSize - 1}
-                class="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                className="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2.5"
                 placeholder="X giriniz."
                 ref={endX}
                 required
@@ -116,21 +116,21 @@ export const AdminPanel = () => {
                 type="number"
                 min="0"
                 max={CanvasHeight / PixelSize - 1}
-                class="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                className="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2.5"
                 placeholder="Y giriniz."
                 ref={endY}
                 required
               />
             </div>
           </div>
-          <div class="flex flex-col mb-3">
-            <label class="block mb-2 text-sm font-medium text-gray-900">
+          <div className="flex flex-col mb-3">
+            <label className="block mb-2 text-sm font-medium text-gray-900">
               Anahtar
             </label>
 
             <input
               type="text"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2.5"
               placeholder="Anahtar giriniz."
               ref={key}
               required
@@ -147,11 +147,11 @@ export const AdminPanel = () => {
           </div>
           <button
             type="submit"
-            class={`text-white ${
+            className={`text-white ${
               isRequestPending
-                ? "bg-blue-700/60 hover:bg-blue-800/60"
-                : "bg-blue-700 hover:bg-blue-800"
-            } focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center transition-colors duration-500`}
+                ? "bg-orange-700/60 hover:bg-orange-800/60"
+                : "bg-orange-700 hover:bg-orange-800"
+            } focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center transition-colors duration-500`}
             disabled={isRequestPending}
           >
             Doldur

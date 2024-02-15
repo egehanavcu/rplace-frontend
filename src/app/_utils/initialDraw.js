@@ -115,7 +115,9 @@ export const initialDraw = function () {
           });
         }
 
-        pointerPlacePixel.bind(this)(mouseRow, mouseCol);
+        if (!document.querySelector("#ui").classList.contains("hidden")) {
+          pointerPlacePixel.bind(this)(mouseRow, mouseCol);
+        }
       }
     }
   });
@@ -136,7 +138,9 @@ export const initialDraw = function () {
             "#coordinates"
           ).textContent = `(${mouseRow},${mouseCol})`;
 
-          addPixelShadow.bind(this)(mouseRow, mouseCol);
+          if (!document.querySelector("#ui").classList.contains("hidden")) {
+            addPixelShadow.bind(this)(mouseRow, mouseCol);
+          }
         } else {
           resetPixelShadow.bind(this)();
         }

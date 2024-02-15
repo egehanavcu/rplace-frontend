@@ -110,7 +110,10 @@ export default class MainScene extends Scene {
     );
 
     window.addEventListener("resize", () => {
-      const UIHeight = document.querySelector("#ui").clientHeight;
+      let UIHeight = 0;
+      if (!document.querySelector("#ui").classList.contains("hidden")) {
+        UIHeight = document.querySelector("#ui").clientHeight;
+      }
       document.querySelector("#loading").style.top = `calc(50% - ${
         UIHeight / 2
       }px)`;
