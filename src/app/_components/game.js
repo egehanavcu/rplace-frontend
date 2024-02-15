@@ -9,7 +9,7 @@ import { Login } from "./login";
 export const Game = ({ isAdmin }) => {
   const [game, setGame] = useState();
   const [hoveredColor, setHoveredColor] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     let UIHeight = 0;
@@ -52,7 +52,7 @@ export const Game = ({ isAdmin }) => {
         Yükleniyor...
       </div>
       {isAdmin && <AdminPanel />}
-      {!isAdmin && <Login />}
+      {!isLoggedIn && !isAdmin && <Login />}
       <div
         className="justify-center absolute top-14 left-1/2 -translate-x-1/2 min-w-[12rem] px-2 py-0.5 bg-white text-center font-mono rounded-full select-none container-shadow animate-pulse z-10 hidden"
         id="connectionError"
@@ -75,7 +75,7 @@ export const Game = ({ isAdmin }) => {
       </div>
       <div
         className={`flex flex-col justify-center gap-3 absolute bottom-0 w-full bg-slate-50 py-2 ${
-          isLoggedIn ? "hidden" : ""
+          isLoggedIn ? "" : "hidden"
         }`}
         id="ui"
       >
