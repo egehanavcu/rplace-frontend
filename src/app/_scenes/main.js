@@ -9,6 +9,7 @@ import { getPixelUpdate } from "../_socket/getPixelUpdate";
 import { reconnectDraw } from "../_utils/reconnectDraw";
 import { createBatchPixels } from "../_utils/createBatchPixels";
 import { getFill } from "../_socket/getFill";
+import { toggleSound } from "../_events/cross/pixel/toggleSound";
 
 export default class MainScene extends Scene {
   constructor() {
@@ -29,6 +30,7 @@ export default class MainScene extends Scene {
     this.color = 0x000000;
     this.isLoading = true;
     this.isPan = false;
+    this.isMuted = false;
     this.lastPositionPan = { x: null, y: null };
     this.lastDistance = 0;
     this.lastMousePixel = { row: null, col: null, shadow: null };
@@ -83,6 +85,7 @@ export default class MainScene extends Scene {
     this.stompClient.heartbeat.incoming = 5000;
     this.stompClient.reconnect_delay = 3000;
 
+    toggleSound.bind(this)();
     createBatchPixels.bind(this)();
 
     this.stompClient.connect(
@@ -122,7 +125,7 @@ export default class MainScene extends Scene {
 
     document.querySelectorAll("[id^='color-']").forEach((button) => {
       button.addEventListener("click", () => {
-        this.sound.add("choose-color").play();
+        this.sound.add("choose-color", { mute: this.isMuted }).play();
         this.color = COLORS[button.id.split("-")[1]];
       });
     });
@@ -134,7 +137,7 @@ export default class MainScene extends Scene {
       });
 
     document.querySelector("#cancelPlacement").addEventListener("click", () => {
-      this.sound.add("cancel").play();
+      this.sound.add("cancel", { mute: this.isMuted }).play();
       cancelPlacement.bind(this)();
     });
 

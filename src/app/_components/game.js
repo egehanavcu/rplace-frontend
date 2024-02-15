@@ -53,6 +53,21 @@ export const Game = ({ isAdmin }) => {
       </div>
       {isAdmin && <AdminPanel />}
       {!isLoggedIn && !isAdmin && <Login />}
+      {(isLoggedIn || isAdmin) && (
+        <div
+          className="flex justify-center items-center absolute top-4 left-4 w-8 h-8 bg-white hover:bg-slate-200 transition-colors duration-500 rounded-full select-none cursor-pointer container-shadow z-10"
+          id="volume"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 -960 960 960"
+            width="24"
+          >
+            <path d="M560-131v-82q90-26 145-100t55-168q0-94-55-168T560-749v-82q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm440 40v-322q47 22 73.5 66t26.5 96q0 51-26.5 94.5T560-320ZM400-606l-86 86H200v80h114l86 86v-252ZM300-480Z" />
+          </svg>
+        </div>
+      )}
       <div
         className="justify-center absolute top-14 left-1/2 -translate-x-1/2 min-w-[12rem] px-2 py-0.5 bg-white text-center font-mono rounded-full select-none container-shadow animate-pulse z-10 hidden"
         id="connectionError"
@@ -75,7 +90,7 @@ export const Game = ({ isAdmin }) => {
       </div>
       <div
         className={`flex flex-col justify-center gap-3 absolute bottom-0 w-full bg-slate-50 py-2 ${
-          isLoggedIn ? "" : "hidden"
+          isLoggedIn || isAdmin ? "" : "hidden"
         }`}
         id="ui"
       >

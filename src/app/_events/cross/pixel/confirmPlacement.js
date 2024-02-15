@@ -4,7 +4,7 @@ import { PlacementSeconds } from "@/app/_utils/constants";
 export const confirmPlacement = function () {
   if (this.canPlacePixel && this.selectedPixel.element) {
     sendPixel.bind(this)();
-    this.sound.add("place-pixel").play();
+    this.sound.add("place-pixel", { mute: this.isMuted }).play();
 
     // this.selectedPixel.element.setStrokeStyle(0);
     this.selectedPixel.element.destroy();
@@ -48,7 +48,7 @@ export const confirmPlacement = function () {
         intervalId = null;
       }
 
-      this.sound.add("can-modify").play();
+      this.sound.add("can-modify", { mute: this.isMuted }).play();
       this.canPlacePixel = true;
       document.querySelector("#breakContainer").classList.add("hidden");
       document.querySelector("#breakContainer").classList.remove("flex");

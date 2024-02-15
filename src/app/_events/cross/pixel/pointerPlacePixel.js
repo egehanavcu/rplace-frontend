@@ -2,12 +2,12 @@ import { PixelSize } from "@/app/_utils/constants";
 
 export const pointerPlacePixel = function (row, col) {
   if (!this.canPlacePixel) {
-    this.sound.add("cant-modify").play();
+    this.sound.add("cant-modify", { mute: this.isMuted }).play();
     this.cameras.main.shake(300, 0.01 / this.cameras.main.zoom, true);
     return;
   }
 
-  this.sound.add("select-pixel").play();
+  this.sound.add("select-pixel", { mute: this.isMuted }).play();
 
   if (this.selectedPixel.element) {
     this.selectedPixel.element.destroy();
