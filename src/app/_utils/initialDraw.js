@@ -79,6 +79,7 @@ export const initialDraw = function () {
 
       this.isLoading = false;
       document.querySelector("#loading").classList.add("hidden");
+      document.querySelector("body").style.backgroundColor = "#343334";
     }
   });
 
@@ -151,7 +152,9 @@ export const initialDraw = function () {
       "#coordinates"
     ).textContent = `(${URLParams.x},${URLParams.y})`;
 
-    addPixelShadow.bind(this)(+URLParams.x, +URLParams.y);
+    if (this.sys.game.device.os.desktop) {
+      addPixelShadow.bind(this)(+URLParams.x, +URLParams.y);
+    }
 
     this.cameras.main.centerOn(
       +URLParams.x * PixelSize + PixelSize / 2,

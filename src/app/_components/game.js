@@ -60,10 +60,10 @@ export const Game = ({ isAdmin }) => {
         </span>
       </div>
       <div
-        className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 hidden"
+        className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 hidden"
         id="loading"
       >
-        <span className="loader"></span>
+        <img src="/images/loading.gif" />
       </div>
       <div
         className="flex flex-col justify-center gap-3 absolute bottom-0 w-full bg-slate-50 py-2"

@@ -41,7 +41,7 @@ export default class NotFoundScene extends Scene {
         this.message1 = this.add
           .text(0, 0, "Görünen o ki kayboldun", {
             fontFamily: "pixelify",
-            fontSize: 30 * fontConstant,
+            fontSize: 24 * fontConstant,
             color: "#ff0000",
           })
           .setOrigin(0.5);
@@ -54,7 +54,7 @@ export default class NotFoundScene extends Scene {
         this.message2 = this.add
           .text(0, 0, "Dönmek için ekrana tıkla", {
             fontFamily: "pixelify",
-            fontSize: 24 * fontConstant,
+            fontSize: 18 * fontConstant,
             color: "#5656ee",
           })
           .setOrigin(0.5);

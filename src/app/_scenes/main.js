@@ -75,7 +75,6 @@ export default class MainScene extends Scene {
   }
 
   create() {
-    document.querySelector("body").style.backgroundColor = "#343334";
     this.stompClient = Stomp.over(function () {
       return new SockJS("https://yildizplace-backend.onrender.com/rplace");
     });
