@@ -1,10 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { sendInviteLink } from "../_socket/sendInviteLink";
 
 export const Login = () => {
   const [isLoginShowing, setIsLoginShowing] = useState(false);
   const [isRequestPending, setIsRequestPending] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [hasRegistered, setHasRegistered] = useState(false);
+  const email = useRef("");
+
+  const handleForm = (event) => {
+    event.preventDefault();
+    if (email.current.value.endsWith("@std.yildiz.edu.tr")) {
+      setHasError(false);
+      setIsRequestPending(true);
+      sendInviteLink(email.current.value).then((data) => {
+        setIsRequestPending(false);
+        setHasRegistered(true);
+      });
+    } else {
+      setHasError(true);
+    }
+  };
+
   return (
     <>
       <div
@@ -28,7 +47,7 @@ export const Login = () => {
         }`}
       >
         <h1 className="text-lg font-bold mb-2">Giriş Yap</h1>
-        <form>
+        <form onSubmit={handleForm}>
           <div className="mb-3">
             Etkinliğe katılmak için, lütfen aşağıdaki forma üniversite e-posta
             adresinizi girin. Ardından, e-posta adresinize bir giriş bağlantısı
@@ -42,11 +61,24 @@ export const Login = () => {
 
             <input
               type="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2.5"
+              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm ${
+                hasError ? "ring-2 ring-red-500" : ""
+              } focus:ring-blue-500 focus:border-blue-500 p-2.5`}
               placeholder="YTU e-postanızı giriniz."
               required
+              ref={email}
             />
           </div>
+          {hasError && (
+            <div className="mb-3 text-red-600 text-sm font-semibold">
+              * Lütfen YTU e-postanızı giriniz.
+            </div>
+          )}
+          {hasRegistered && (
+            <div className="mb-3 text-green-600 text-sm font-semibold">
+              Başarıyla kayıt oldunuz. E-postanızı kontrol edin.
+            </div>
+          )}
           <button
             type="submit"
             className={`text-white ${

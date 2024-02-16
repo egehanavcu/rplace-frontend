@@ -78,7 +78,7 @@ export default class MainScene extends Scene {
 
   create() {
     this.stompClient = Stomp.over(function () {
-      return new SockJS("https://yildizplace-backend.onrender.com/rplace");
+      return new SockJS("https://backend.egehan.dev/rplace");
     });
 
     this.stompClient.heartbeat.outgoing = 5000;

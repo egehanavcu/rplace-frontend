@@ -3,14 +3,29 @@ import { PlacementSeconds } from "@/app/_utils/constants";
 
 export const confirmPlacement = function () {
   if (this.canPlacePixel && this.selectedPixel.element) {
-    sendPixel.bind(this)();
+    sendPixel
+      .bind(this)()
+      .then((data) => {
+        this.selectedPixel.element.destroy();
+
+        this.canPlacePixel = false;
+        this.selectedPixel = {
+          row: null,
+          col: null,
+          element: null,
+          color: null,
+        };
+      });
+
     this.sound.add("place-pixel", { mute: this.isMuted }).play();
 
     // this.selectedPixel.element.setStrokeStyle(0);
+    /*
     this.selectedPixel.element.destroy();
 
     this.canPlacePixel = false;
     this.selectedPixel = { row: null, col: null, element: null, color: null };
+    */
 
     const confirmContainerHeight =
       document.querySelector("#confirmContainer").clientHeight;
