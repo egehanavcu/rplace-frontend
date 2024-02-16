@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
   let isLoggedIn = request.cookies.get("user_token")?.value ? true : false;
   const redirectURL = request.nextUrl.clone();
+  redirectURL.search = "";
   if (isLoggedIn && request.nextUrl.pathname === "/login") {
     redirectURL.pathname = "/";
     return NextResponse.redirect(redirectURL);
