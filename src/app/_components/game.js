@@ -6,10 +6,10 @@ import ColorBox from "../_components/colorBox";
 import { AdminPanel } from "../_components/adminPanel";
 import { Login } from "./login";
 
-export const Game = ({ isAdmin }) => {
+export const Game = ({ isLoggedIn: hasLoggedIn, isAdmin }) => {
   const [game, setGame] = useState();
   const [hoveredColor, setHoveredColor] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(hasLoggedIn);
 
   useEffect(() => {
     let UIHeight = 0;

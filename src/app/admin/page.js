@@ -3,5 +3,5 @@
 import { Game } from "../_components/game";
 
 export default function AdminPage() {
-  return <Game isAdmin={true} />;
+  return <Game isLoggedIn={true} isAdmin={true} />;
 }
