@@ -97,23 +97,26 @@ export const initialDraw = function () {
         document.querySelector(
           "#coordinates"
         ).textContent = `(${mouseRow},${mouseCol})`;
-        if (
-          this.cameras.main.zoom >= minZoom &&
-          this.cameras.main.zoom <= 5 * minZoom
-        ) {
+        //if (this.cameras.main.zoom == minZoom) {
+        /*
           this.cameras.main.centerOn(
             mouseRow * PixelSize + PixelSize / 2,
             mouseCol * PixelSize + PixelSize / 2
           );
+          */
 
-          this.lastTween = this.tweens.add({
-            targets: this.cameras.main,
-            zoom: 1.5,
-            duration: 800 * Math.abs(3 - this.cameras.main.zoom),
-            ease: "sine.inout",
-            repeat: 0,
-          });
-        }
+        this.lastTween = this.tweens.add({
+          targets: this.cameras.main,
+          scrollX:
+            mouseRow * PixelSize + PixelSize / 2 - this.cameras.main.width / 2,
+          scrollY:
+            mouseCol * PixelSize + PixelSize / 2 - this.cameras.main.height / 2,
+          zoom: this.cameras.main.zoom,
+          duration: 500,
+          ease: "sine.inout",
+          repeat: 0,
+        });
+        //}
 
         if (!document.querySelector("#ui").classList.contains("hidden")) {
           pointerPlacePixel.bind(this)(mouseRow, mouseCol);
