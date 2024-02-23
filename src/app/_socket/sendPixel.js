@@ -1,4 +1,4 @@
-export const sendPixel = function () {
+export const sendPixel = function (row, col, color) {
   return fetch("https://backend.egehan.dev/api/pixels/addPixel", {
     method: "POST",
     headers: {
@@ -6,9 +6,9 @@ export const sendPixel = function () {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      x: this.selectedPixel.row,
-      y: this.selectedPixel.col,
-      color: this.color.toString(16),
+      x: row,
+      y: col,
+      color: color.toString(16),
     }),
     credentials: "include",
   })

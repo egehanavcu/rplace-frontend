@@ -19,7 +19,6 @@ export const AdminPanel = () => {
   const startY = useRef();
   const endX = useRef();
   const endY = useRef();
-  const key = useRef();
 
   const fillArea = (event) => {
     event.preventDefault();
@@ -29,8 +28,7 @@ export const AdminPanel = () => {
       startY.current.value,
       endX.current.value,
       endY.current.value,
-      currentFillColor,
-      key.current.value
+      currentFillColor
     ).then((data) => {
       setIsRequestPending(false);
       setIsPanelShowing(false);
@@ -122,19 +120,6 @@ export const AdminPanel = () => {
                 required
               />
             </div>
-          </div>
-          <div className="flex flex-col mb-3">
-            <label className="block mb-2 text-sm font-medium text-gray-900">
-              Anahtar
-            </label>
-
-            <input
-              type="text"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 p-2.5"
-              placeholder="Anahtar giriniz."
-              ref={key}
-              required
-            />
           </div>
           <div className="flex items-center gap-2 mb-3">
             <p>Rengi alt menüden seç:</p>

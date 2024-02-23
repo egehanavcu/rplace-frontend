@@ -3,19 +3,22 @@ import { PlacementSeconds } from "@/app/_utils/constants";
 
 export const confirmPlacement = function () {
   if (this.canPlacePixel && this.selectedPixel.element) {
-    sendPixel
-      .bind(this)()
-      .then((data) => {
-        this.selectedPixel.element.destroy();
+    const row = this.selectedPixel.row;
+    const col = this.selectedPixel.col;
+    const color = this.color;
 
-        this.canPlacePixel = false;
-        this.selectedPixel = {
-          row: null,
-          col: null,
-          element: null,
-          color: null,
-        };
-      });
+    sendPixel
+      .bind(this)(row, col, color)
+      .then((data) => {});
+
+    this.selectedPixel.element.destroy();
+    this.canPlacePixel = false;
+    this.selectedPixel = {
+      row: null,
+      col: null,
+      element: null,
+      color: null,
+    };
 
     this.sound.add("place-pixel", { mute: this.isMuted }).play();
 
