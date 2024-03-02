@@ -4,13 +4,18 @@ export const wheel = function (pointer, gameObjects, deltaX, deltaY) {
   if (!this.sys.game.device.os.desktop || this.isLoading) {
     return;
   }
-
+  /* 
+  Math.min(
+      (this.game.config.width - 30) / CanvasWidth,
+      (this.game.config.height - 30) / CanvasHeight
+    ),
+  */
   this.cameras.main.zoom = Phaser.Math.Clamp(
     this.cameras.main.zoom - deltaY / 500,
     Math.min(
       (this.game.config.width - 30) / CanvasWidth,
       (this.game.config.height - 30) / CanvasHeight
-    ),
+    ) / 2,
     5
   );
 };

@@ -112,8 +112,8 @@ export const initialDraw = function () {
           scrollY:
             mouseCol * PixelSize + PixelSize / 2 - this.cameras.main.height / 2,
           zoom: this.cameras.main.zoom,
-          duration: 500,
-          ease: "sine.inout",
+          duration: 600,
+          ease: "cubic.out",
           repeat: 0,
         });
         //}

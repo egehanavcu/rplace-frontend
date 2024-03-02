@@ -13,7 +13,7 @@ export const pinch = function (pointer) {
       Math.min(
         (this.game.config.width - 30) / CanvasWidth,
         (this.game.config.height - 30) / CanvasHeight
-      ),
+      ) / 2,
       5
     );
   }

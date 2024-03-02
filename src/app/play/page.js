@@ -12,7 +12,9 @@ export default function AuthenticationPage() {
     useEffect(() => {
       return fetch(
         `https://backend.egehan.dev/api/users/login?token=${token}`,
-        { credentials: "include" }
+        {
+          credentials: "include",
+        }
       )
         .then((response) => response.json())
         .then((receivedData) => {
