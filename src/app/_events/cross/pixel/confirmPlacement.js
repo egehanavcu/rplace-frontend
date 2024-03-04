@@ -1,17 +1,41 @@
+import { sendFill } from "@/app/_socket/sendFill";
 import { sendPixel } from "@/app/_socket/sendPixel";
 import { PlacementSeconds } from "@/app/_utils/constants";
 
 export const confirmPlacement = function () {
-  if (this.canPlacePixel && this.selectedPixel.element) {
+  if (this.canPlacePixel) {
     const row = this.selectedPixel.row;
     const col = this.selectedPixel.col;
     const color = this.color;
 
-    sendPixel
-      .bind(this)(row, col, color)
-      .then((data) => {});
+    if (this.isFillingMode) {
+      sendFill(
+        this.lastFill.startX,
+        this.lastFill.startY,
+        this.lastFill.endX,
+        this.lastFill.endY,
+        this.color
+      ).then((data) => {
+        this.lastFill = {
+          element: null,
+          startX: null,
+          startY: null,
+          endX: null,
+          endY: null,
+        };
+      });
 
-    this.selectedPixel.element.destroy();
+      this.lastFill.element.destroy();
+    }
+
+    if (!this.isFillingMode && this.selectedPixel.element) {
+      sendPixel
+        .bind(this)(row, col, color)
+        .then((data) => {});
+
+      this.selectedPixel.element.destroy();
+    }
+
     this.canPlacePixel = false;
     this.selectedPixel = {
       row: null,

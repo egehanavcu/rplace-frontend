@@ -91,19 +91,15 @@ export const initialDraw = function () {
   this.input.on("pointerup", (pointer) => {
     const mouseRow = Math.floor(pointer.worldX / PixelSize);
     const mouseCol = Math.floor(pointer.worldY / PixelSize);
-    if (pixelIsInBorders(mouseRow, mouseCol) && !this.isLoading) {
+    if (
+      pixelIsInBorders(mouseRow, mouseCol) &&
+      !this.isFillingMode &&
+      !this.isLoading
+    ) {
       if (pointer.getDistance() <= 20) {
-        // console.log("Clicked on grid:", mouseRow, mouseCol);
         document.querySelector(
           "#coordinates"
         ).textContent = `(${mouseRow},${mouseCol})`;
-        //if (this.cameras.main.zoom == minZoom) {
-        /*
-          this.cameras.main.centerOn(
-            mouseRow * PixelSize + PixelSize / 2,
-            mouseCol * PixelSize + PixelSize / 2
-          );
-          */
 
         this.lastTween = this.tweens.add({
           targets: this.cameras.main,
@@ -122,30 +118,68 @@ export const initialDraw = function () {
           pointerPlacePixel.bind(this)(mouseRow, mouseCol);
         }
       }
+    } else if (this.isFillingMode && !this.isLoading) {
+      this.lastFill.startedFilling = false;
+      if (!document.querySelector("#ui").classList.contains("hidden")) {
+        pointerPlacePixel.bind(this)(mouseRow, mouseCol);
+      }
+      return;
     }
   });
 
   this.input.on("pointermove", (pointer) => {
-    if (!pointer.isDown && !this.isLoading) {
-      const mouseRow = Math.floor(pointer.worldX / PixelSize);
-      const mouseCol = Math.floor(pointer.worldY / PixelSize);
+    if (!this.isLoading) {
+      let mouseRow = Math.floor(pointer.worldX / PixelSize);
+      let mouseCol = Math.floor(pointer.worldY / PixelSize);
 
-      if (
-        this.lastMousePixel.row != mouseRow ||
-        this.lastMousePixel.col != mouseCol
-      ) {
-        destroyPixelShadow.bind(this)();
-        if (pixelIsInBorders(mouseRow, mouseCol)) {
-          // console.log("Moved on grid:", mouseRow, mouseCol);
-          document.querySelector(
-            "#coordinates"
-          ).textContent = `(${mouseRow},${mouseCol})`;
+      if (pointer.isDown) {
+        mouseRow = Phaser.Math.Clamp(mouseRow, 0, CanvasWidth / PixelSize - 1);
+        mouseCol = Phaser.Math.Clamp(mouseCol, 0, CanvasHeight / PixelSize - 1);
+        if (this.isFillingMode && this.canPlacePixel) {
+          if (this.lastFill.startedFilling) {
+            this.lastFill.endX = mouseRow;
+            this.lastFill.endY = mouseCol;
 
-          if (!document.querySelector("#ui").classList.contains("hidden")) {
-            addPixelShadow.bind(this)(mouseRow, mouseCol);
+            this.lastFill.element.width =
+              (this.lastFill.endX - this.lastFill.startX + 1) * PixelSize;
+            this.lastFill.element.height =
+              (this.lastFill.endY - this.lastFill.startY + 1) * PixelSize;
+          } else {
+            this.lastFill.startX = mouseRow;
+            this.lastFill.startY = mouseCol;
+            this.lastFill.startedFilling = true;
+
+            this.lastFill?.element?.destroy();
+            this.lastFill.element = this.add
+              .rectangle(
+                this.lastFill.startX * PixelSize,
+                this.lastFill.startY * PixelSize,
+                0,
+                0,
+                this.color,
+                1
+              )
+              .setOrigin(0, 0);
           }
-        } else {
-          resetPixelShadow.bind(this)();
+        }
+      } else {
+        if (
+          this.lastMousePixel.row != mouseRow ||
+          this.lastMousePixel.col != mouseCol
+        ) {
+          destroyPixelShadow.bind(this)();
+          if (pixelIsInBorders(mouseRow, mouseCol)) {
+            // console.log("Moved on grid:", mouseRow, mouseCol);
+            document.querySelector(
+              "#coordinates"
+            ).textContent = `(${mouseRow},${mouseCol})`;
+
+            if (!document.querySelector("#ui").classList.contains("hidden")) {
+              addPixelShadow.bind(this)(mouseRow, mouseCol);
+            }
+          } else {
+            resetPixelShadow.bind(this)();
+          }
         }
       }
     }

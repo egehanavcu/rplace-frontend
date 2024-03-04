@@ -10,6 +10,7 @@ import { reconnectDraw } from "../_utils/reconnectDraw";
 import { createBatchPixels } from "../_utils/createBatchPixels";
 import { getFill } from "../_socket/getFill";
 import { toggleSound } from "../_events/cross/pixel/toggleSound";
+import { toggleFill } from "../_events/cross/pixel/toggleFill";
 
 export default class MainScene extends Scene {
   constructor() {
@@ -30,8 +31,17 @@ export default class MainScene extends Scene {
     this.color = 0x000000;
     this.isLoading = true;
     this.isPan = false;
+    this.isFillingMode = false;
     this.isMuted = false;
     this.lastPositionPan = { x: null, y: null };
+    this.lastFill = {
+      element: null,
+      startX: null,
+      startY: null,
+      endX: null,
+      endY: null,
+      startedFilling: false,
+    };
     this.lastDistance = 0;
     this.lastMousePixel = { row: null, col: null, shadow: null };
     this.lastTween = null;
@@ -62,17 +72,20 @@ export default class MainScene extends Scene {
       ) {
         return;
       }
-      this.cameras.main.scrollX -=
-        (this.input.activePointer.position.x - this.lastPositionPan.x) /
-        this.cameras.main.zoom;
-      this.cameras.main.scrollY -=
-        (this.input.activePointer.position.y - this.lastPositionPan.y) /
-        this.cameras.main.zoom;
 
-      this.lastPositionPan = {
-        x: this.input.activePointer.x,
-        y: this.input.activePointer.y,
-      };
+      if (!this.isFillingMode) {
+        this.cameras.main.scrollX -=
+          (this.input.activePointer.position.x - this.lastPositionPan.x) /
+          this.cameras.main.zoom;
+        this.cameras.main.scrollY -=
+          (this.input.activePointer.position.y - this.lastPositionPan.y) /
+          this.cameras.main.zoom;
+
+        this.lastPositionPan = {
+          x: this.input.activePointer.x,
+          y: this.input.activePointer.y,
+        };
+      }
     }
   }
 
@@ -86,6 +99,7 @@ export default class MainScene extends Scene {
     this.stompClient.reconnect_delay = 3000;
 
     toggleSound.bind(this)();
+    toggleFill.bind(this)();
     createBatchPixels.bind(this)();
 
     this.stompClient.connect(

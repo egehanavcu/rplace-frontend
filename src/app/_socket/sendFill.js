@@ -11,10 +11,10 @@ export const sendFill = function (startX, startY, endX, endY, color) {
     },
     credentials: "include",
     body: JSON.stringify({
-      startX,
-      startY,
-      endX,
-      endY,
+      startX: Math.min(startX, endX),
+      startY: Math.min(startY, endY),
+      endX: Math.max(startX, endX),
+      endY: Math.max(startY, endY),
       color: color.toString(16),
     }),
   })

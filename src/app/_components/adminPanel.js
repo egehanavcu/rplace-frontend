@@ -10,6 +10,8 @@ import {
 import { toHexWithLeadingZeros } from "./colorBox";
 import { sendFill } from "../_socket/sendFill";
 
+// BU COMPONENT ARTIK KULLANILMIYOR
+
 export const AdminPanel = () => {
   const [isPanelShowing, setIsPanelShowing] = useState(false);
   const [isRequestPending, setIsRequestPending] = useState(false);
@@ -47,6 +49,7 @@ export const AdminPanel = () => {
 
   return (
     <>
+      /*
       <div
         className="flex justify-center items-center absolute top-4 right-4 w-8 h-8 bg-white hover:bg-slate-200 transition-colors duration-500 rounded-full select-none cursor-pointer container-shadow z-10"
         onClick={() => {
@@ -64,6 +67,7 @@ export const AdminPanel = () => {
           <path d="M680-280q25 0 42.5-17.5T740-340q0-25-17.5-42.5T680-400q-25 0-42.5 17.5T620-340q0 25 17.5 42.5T680-280Zm0 120q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z" />
         </svg>
       </div>
+      */
       <div
         className={`flex flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5/6 md:w-1/3 py-4 px-8 bg-white border-2 border-black pixel-box-shadow select-none z-20 ${
           isPanelShowing ? "" : "hidden"
