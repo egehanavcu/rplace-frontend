@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { sendInviteLink } from "../_socket/sendInviteLink";
+import { sendInviteLink } from "../_requests/sendInviteLink";
 
 export const Login = () => {
   const [isLoginShowing, setIsLoginShowing] = useState(false);

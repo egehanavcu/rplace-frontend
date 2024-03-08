@@ -2,7 +2,6 @@ import { PixelSize } from "../_utils/constants";
 
 export const getPixelUpdate = function () {
   this.stompClient.subscribe("/topic/pixels", (response) => {
-    console.log("Received pixel from WebSocket");
     const data = JSON.parse(response.body);
 
     if (this.renderTexture) {

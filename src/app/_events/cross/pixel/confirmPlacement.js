@@ -1,5 +1,5 @@
-import { sendFill } from "@/app/_socket/sendFill";
-import { sendPixel } from "@/app/_socket/sendPixel";
+import { sendFill } from "@/app/_requests/sendFill";
+import { sendPixel } from "@/app/_requests/sendPixel";
 import { PlacementSeconds } from "@/app/_utils/constants";
 
 export const confirmPlacement = function () {
@@ -45,14 +45,6 @@ export const confirmPlacement = function () {
     };
 
     this.sound.add("place-pixel", { mute: this.isMuted }).play();
-
-    // this.selectedPixel.element.setStrokeStyle(0);
-    /*
-    this.selectedPixel.element.destroy();
-
-    this.canPlacePixel = false;
-    this.selectedPixel = { row: null, col: null, element: null, color: null };
-    */
 
     const confirmContainerHeight =
       document.querySelector("#confirmContainer").clientHeight;

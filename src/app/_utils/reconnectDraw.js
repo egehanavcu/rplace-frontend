@@ -1,4 +1,4 @@
-import { getBoardReconnect } from "../_socket/getBoardReconnect";
+import { getBoardReconnect } from "../_requests/getBoardReconnect";
 import { PixelSize } from "./constants";
 
 export const reconnectDraw = function (data) {

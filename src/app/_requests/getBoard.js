@@ -1,5 +1,7 @@
+import { DOMAIN } from "../_utils/constants";
+
 export const getBoard = function () {
-  return fetch("https://backend.egehan.dev/api/pixels/getColors", {
+  return fetch(`${DOMAIN}/api/pixels/getColors`, {
     credentials: "include",
   })
     .then((response) => response.json())

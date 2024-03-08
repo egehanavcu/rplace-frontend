@@ -1,6 +1,7 @@
 import { pointerPlacePixel } from "../_events/cross/pixel/pointerPlacePixel";
-import { getBoard } from "../_socket/getBoard";
+import { getBoard } from "../_requests/getBoard";
 import { CanvasHeight, CanvasWidth, DEBUG_MODE, PixelSize } from "./constants";
+import { drawDevelopers } from "./drawDevelopers";
 import {
   addPixelShadow,
   destroyPixelShadow,
@@ -15,9 +16,11 @@ export const initialDraw = function () {
     CanvasHeight
   );
 
+  const UIHeight = document.querySelector("#ui").clientHeight;
+
   const minZoom = Math.min(
     (this.game.config.width - 30) / CanvasWidth,
-    (this.game.config.height - 30) / CanvasHeight
+    (this.game.config.height - 2 * UIHeight - 30 - 45) / CanvasHeight
   );
 
   getBoard().then((receivedData) => {
@@ -80,6 +83,7 @@ export const initialDraw = function () {
       this.isLoading = false;
       document.querySelector("#loading").classList.add("hidden");
       document.querySelector("body").style.backgroundColor = "#343334";
+      drawDevelopers.bind(this)();
     }
   });
 
@@ -169,7 +173,6 @@ export const initialDraw = function () {
         ) {
           destroyPixelShadow.bind(this)();
           if (pixelIsInBorders(mouseRow, mouseCol)) {
-            // console.log("Moved on grid:", mouseRow, mouseCol);
             document.querySelector(
               "#coordinates"
             ).textContent = `(${mouseRow},${mouseCol})`;
@@ -210,7 +213,10 @@ export const initialDraw = function () {
     });
   } else {
     document.querySelector("#coordinates").textContent = "(0,0)";
-    this.cameras.main.centerOn(CanvasWidth / 2, CanvasHeight / 2);
+    this.cameras.main.centerOn(
+      CanvasWidth / 2,
+      CanvasHeight / 2 + UIHeight / 2 / this.cameras.main.zoom
+    );
   }
 };
 

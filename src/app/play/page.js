@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { DOMAIN } from "../_utils/constants";
 
 const { useEffect } = require("react");
 
@@ -10,12 +11,9 @@ export default function AuthenticationPage() {
 
   if (token) {
     useEffect(() => {
-      return fetch(
-        `https://backend.egehan.dev/api/users/login?token=${token}`,
-        {
-          credentials: "include",
-        }
-      )
+      return fetch(`${DOMAIN}/api/users/login?token=${token}`, {
+        credentials: "include",
+      })
         .then((response) => response.json())
         .then((receivedData) => {
           window.location.href = "/";

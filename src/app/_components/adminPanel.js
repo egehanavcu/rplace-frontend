@@ -8,7 +8,7 @@ import {
   PixelSize,
 } from "../_utils/constants";
 import { toHexWithLeadingZeros } from "./colorBox";
-import { sendFill } from "../_socket/sendFill";
+import { sendFill } from "../_requests/sendFill";
 
 // BU COMPONENT ARTIK KULLANILMIYOR
 

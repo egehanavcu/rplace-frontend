@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { COLORS, DEBUG_MODE } from "../_utils/constants";
+import { COLORS, DEBUG_MODE, DOMAIN } from "../_utils/constants";
 import { initialDraw } from "../_utils/initialDraw";
 import { wheel } from "../_events/computer/wheel";
 import { pinch } from "../_events/mobile/pinch";
@@ -9,8 +9,9 @@ import { getPixelUpdate } from "../_socket/getPixelUpdate";
 import { reconnectDraw } from "../_utils/reconnectDraw";
 import { createBatchPixels } from "../_utils/createBatchPixels";
 import { getFill } from "../_socket/getFill";
-import { toggleSound } from "../_events/cross/pixel/toggleSound";
+import { toggleSound } from "../_events/cross/toggleSound";
 import { toggleFill } from "../_events/cross/pixel/toggleFill";
+import { updateDevelopers } from "../_utils/updateDevelopers";
 
 export default class MainScene extends Scene {
   constructor() {
@@ -42,6 +43,10 @@ export default class MainScene extends Scene {
       endY: null,
       startedFilling: false,
     };
+    this.developers = {
+      egehan: {},
+      yusuf: {},
+    };
     this.lastDistance = 0;
     this.lastMousePixel = { row: null, col: null, shadow: null };
     this.lastTween = null;
@@ -49,6 +54,19 @@ export default class MainScene extends Scene {
 
   preload() {
     this.load.image("edge", "images/edge.png");
+    for (const developerAlias of Object.keys(this.developers)) {
+      for (const animation of ["run", "jump", "death"]) {
+        this.load.spritesheet(
+          `${developerAlias}_${animation}`,
+          `images/developers/${developerAlias}_${animation}.png`,
+          {
+            frameWidth: 48,
+            frameHeight: 48,
+          }
+        );
+      }
+    }
+
     this.load.audio("select-pixel", ["sounds/select-pixel.mp3"]);
     this.load.audio("place-pixel", ["sounds/place-pixel.mp3"]);
     this.load.audio("can-modify", ["sounds/can-modify.mp3"]);
@@ -87,11 +105,13 @@ export default class MainScene extends Scene {
         };
       }
     }
+
+    updateDevelopers.bind(this)();
   }
 
   create() {
     this.stompClient = Stomp.over(function () {
-      return new SockJS("https://backend.egehan.dev/rplace");
+      return new SockJS(`${DOMAIN}/rplace`);
     });
 
     this.stompClient.heartbeat.outgoing = 5000;
@@ -134,7 +154,7 @@ export default class MainScene extends Scene {
       document.querySelector("#loading").style.top = `calc(50% - ${
         UIHeight / 2
       }px)`;
-      this.scale.resize(window.innerWidth, window.innerHeight - UIHeight);
+      this.scale.resize(window.innerWidth, window.innerHeight); // window.innerHeight - UIHeight
     });
 
     document.querySelectorAll("[id^='color-']").forEach((button) => {
@@ -161,17 +181,7 @@ export default class MainScene extends Scene {
     this.input.on(
       "pointermove",
       (pointer) => {
-        /* PINCH */
-        if (
-          !this.sys.game.device.os.desktop &&
-          pointer.event.touches.length === 2
-        ) {
-          pinch.bind(this)(pointer);
-          return;
-        } else {
-          this.lastDistance = 0;
-        }
-        /* PINCH */
+        pinch.bind(this)(pointer);
       },
       this
     );

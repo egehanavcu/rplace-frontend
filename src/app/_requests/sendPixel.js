@@ -1,5 +1,7 @@
+import { DOMAIN } from "../_utils/constants";
+
 export const sendPixel = function (row, col, color) {
-  return fetch("https://backend.egehan.dev/api/pixels/addPixel", {
+  return fetch(`${DOMAIN}/api/pixels/addPixel`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -17,16 +19,4 @@ export const sendPixel = function (row, col, color) {
       return data.data;
     })
     .catch((error) => console.error("Parsing error: ", error));
-
-  /*
-  this.stompClient.send(
-    "/app/pixel",
-    {},
-    JSON.stringify({
-      x: this.selectedPixel.row,
-      y: this.selectedPixel.col,
-      color: this.color.toString(16),
-    })
-  );
-  */
 };

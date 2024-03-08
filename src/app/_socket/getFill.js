@@ -2,7 +2,6 @@ import { PixelSize } from "../_utils/constants";
 
 export const getFill = function () {
   this.stompClient.subscribe("/topic/fill", (response) => {
-    console.log("Received fill from WebSocket");
     const data = JSON.parse(response.body);
 
     if (this.renderTexture) {
