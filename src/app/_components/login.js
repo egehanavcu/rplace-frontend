@@ -99,10 +99,10 @@ export const Login = () => {
         {!isKVKKShowing && (
           <form onSubmit={handleForm}>
             <div className="mb-3">
-              Etkinliğe katılmak için, lütfen aşağıdaki forma üniversite e-posta
-              adresinizi girin. Ardından, e-posta adresinize bir giriş
-              bağlantısı alacaksınız. Bu bağlantıya tıklayarak etkinliğimize
-              katılabilir ve üniversitemizin sanal duvarını oluşturabilirsiniz!
+              Etkinliğe katılmak için, lütfen aşağıdaki forma e-posta adresinizi
+              girin. Ardından, e-posta adresinize bir giriş bağlantısı
+              alacaksınız. Bu bağlantıya tıklayarak etkinliğimize katılabilir ve
+              üniversitemizin sanal duvarını oluşturabilirsiniz!
             </div>
             <div className="mb-3 text-sm font-semibold text-orange-700">
               Okul e-posta adreslerine gönderilen postaların gelen kutusuna
