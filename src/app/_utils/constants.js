@@ -1,8 +1,8 @@
-export const PixelSize = 15;
-export const CanvasWidth = 250 * PixelSize;
-export const CanvasHeight = 250 * PixelSize;
+export const PixelSize = 9.375;
+export const CanvasWidth = 400 * PixelSize;
+export const CanvasHeight = 400 * PixelSize;
 export const PlacementSeconds = 3;
-export const DOMAIN = "https://backend.egehan.dev";
+export const DOMAIN = "https://backend.place.yildizskylab.com";
 export const COLORS = [
   0x6d001a, 0xbe0039, 0xff4500, 0xffa800, 0xffd635, 0xfff8b8, 0x00a368,
   0x00cc78, 0x7eed56, 0x00756f, 0x009eaa, 0x00ccc0, 0x2450a4, 0x3690ea,
