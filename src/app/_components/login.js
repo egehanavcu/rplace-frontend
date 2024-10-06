@@ -122,11 +122,7 @@ export const Login = () => {
                 ref={email}
               />
             </div>
-            {hasRegistered && (
-              <div className="mb-3 text-green-600 text-sm font-semibold">
-                Başarıyla kayıt oldunuz. E-postanızı kontrol edin.
-              </div>
-            )}
+
             <div class="mb-3 flex items-center">
               <input
                 type="checkbox"
@@ -144,6 +140,13 @@ export const Login = () => {
                 KVKK metnini okudum ve onaylıyorum.
               </label>
             </div>
+
+            {hasRegistered && (
+              <div className="mb-3 text-green-600 text-sm font-semibold">
+                Başarıyla kayıt oldunuz. E-postanızı kontrol edin.
+              </div>
+            )}
+
             <button
               type="submit"
               className={`text-white ${
