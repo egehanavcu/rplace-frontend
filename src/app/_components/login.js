@@ -104,7 +104,7 @@ export const Login = () => {
               alacaksınız. Bu bağlantıya tıklayarak etkinliğimize katılabilir ve
               üniversitemizin sanal duvarını oluşturabilirsiniz!
             </div>
-            <div className="mb-3 text-sm font-semibold text-orange-700">
+            <div className="mb-3 text-xs font-semibold text-orange-700">
               Okul e-posta adreslerine gönderilen postaların gelen kutusuna
               ulaşması yaklaşık 15 dakika kadar gecikebilmektedir. Kayıt
               işleminizi gerçekleştirirken lütfen bu durumu dikkate alınız.
