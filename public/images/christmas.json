@@ -1,0 +1,267 @@
+{
+  "textures": [
+    {
+      "image": "texture",
+      "format": "RGBA8888",
+      "size": {
+        "w": 89,
+        "h": 290
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "tree-1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 59,
+            "h": 84
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 59,
+            "h": 84
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 59,
+            "h": 84
+          }
+        },
+        {
+          "filename": "tree-5",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 32,
+            "h": 43
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 43
+          },
+          "frame": {
+            "x": 0,
+            "y": 84,
+            "w": 32,
+            "h": 43
+          }
+        },
+        {
+          "filename": "tree-2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 30,
+            "h": 41
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 30,
+            "h": 41
+          },
+          "frame": {
+            "x": 0,
+            "y": 127,
+            "w": 30,
+            "h": 41
+          }
+        },
+        {
+          "filename": "snowman3",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 30,
+            "h": 41
+          },
+          "spriteSourceSize": {
+            "x": 1,
+            "y": 0,
+            "w": 29,
+            "h": 41
+          },
+          "frame": {
+            "x": 0,
+            "y": 168,
+            "w": 29,
+            "h": 41
+          }
+        },
+        {
+          "filename": "tree-4",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 28,
+            "h": 41
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 28,
+            "h": 41
+          },
+          "frame": {
+            "x": 0,
+            "y": 209,
+            "w": 28,
+            "h": 41
+          }
+        },
+        {
+          "filename": "snowman_2",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 34,
+            "h": 40
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 34,
+            "h": 40
+          },
+          "frame": {
+            "x": 0,
+            "y": 250,
+            "w": 34,
+            "h": 40
+          }
+        },
+        {
+          "filename": "tree-3",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 27,
+            "h": 38
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 27,
+            "h": 38
+          },
+          "frame": {
+            "x": 28,
+            "y": 209,
+            "w": 27,
+            "h": 38
+          }
+        },
+        {
+          "filename": "snowman_1",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 26,
+            "h": 38
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 26,
+            "h": 38
+          },
+          "frame": {
+            "x": 29,
+            "y": 168,
+            "w": 26,
+            "h": 38
+          }
+        },
+        {
+          "filename": "snowman_4",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 17,
+            "h": 27
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 17,
+            "h": 27
+          },
+          "frame": {
+            "x": 55,
+            "y": 168,
+            "w": 17,
+            "h": 27
+          }
+        },
+        {
+          "filename": "red_giftbox",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 20,
+            "h": 26
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 20,
+            "h": 26
+          },
+          "frame": {
+            "x": 30,
+            "y": 127,
+            "w": 20,
+            "h": 26
+          }
+        },
+        {
+          "filename": "orange_giftbox",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 19,
+            "h": 25
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 19,
+            "h": 25
+          },
+          "frame": {
+            "x": 50,
+            "y": 127,
+            "w": 19,
+            "h": 25
+          }
+        },
+        {
+          "filename": "blue_giftbox",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 20,
+            "h": 23
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 20,
+            "h": 23
+          },
+          "frame": {
+            "x": 69,
+            "y": 127,
+            "w": 20,
+            "h": 23
+          }
+        }
+      ]
+    }
+  ]
+}

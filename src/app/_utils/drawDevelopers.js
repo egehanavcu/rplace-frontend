@@ -40,6 +40,18 @@ export const drawDevelopers = function () {
     .setAlpha(0)
     .refreshBody();
 
+  for (const developerAlias of Object.keys(this.developers)) {
+    for (const animation of ["run", "jump", "death"]) {
+      const textureKey = `${developerAlias}_${animation}`;
+
+      if (this.textures.exists(textureKey)) {
+        this.textures
+          .get(textureKey)
+          .setFilter(Phaser.Textures.FilterMode.NEAREST);
+      }
+    }
+  }
+
   for (const developer of Object.values(this.developers)) {
     this.developers[developer.alias].character = this.physics.add
       .sprite(
@@ -47,9 +59,9 @@ export const drawDevelopers = function () {
         -8,
         `${developer.alias}_run`
       )
-      .setOrigin(developer.facingRight ? 0.4 : 0.7, 1)
+      .setOrigin(0.5, 1)
       .setDepth(10)
-      .setScale(6)
+      .setScale(8)
       .setFlipX(!developer.facingRight)
       .setInteractive();
 

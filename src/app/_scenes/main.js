@@ -53,6 +53,11 @@ export default class MainScene extends Scene {
   }
 
   preload() {
+    this.load.atlas(
+      "christmas",
+      "images/christmas.png",
+      "images/christmas.json"
+    );
     this.load.image("edge", "images/edge.png");
     for (const developerAlias of Object.keys(this.developers)) {
       for (const animation of ["run", "jump", "death"]) {
@@ -61,7 +66,7 @@ export default class MainScene extends Scene {
           `images/developers/${developerAlias}_${animation}.png`,
           {
             frameWidth: 48,
-            frameHeight: 48,
+            frameHeight: 32,
           }
         );
       }

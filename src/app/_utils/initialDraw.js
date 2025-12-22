@@ -1,5 +1,6 @@
 import { pointerPlacePixel } from "../_events/cross/pixel/pointerPlacePixel";
 import { getBoard } from "../_requests/getBoard";
+import { addChristmasItems, initSnow } from "./christmasEffects";
 import { CanvasHeight, CanvasWidth, DEBUG_MODE, PixelSize } from "./constants";
 import { drawDevelopers } from "./drawDevelopers";
 import {
@@ -84,6 +85,8 @@ export const initialDraw = function () {
       document.querySelector("#loading").classList.add("hidden");
       document.querySelector("body").style.backgroundColor = "#343334";
       drawDevelopers.bind(this)();
+      initSnow.bind(this)();
+      addChristmasItems.bind(this)();
     }
   });
 
